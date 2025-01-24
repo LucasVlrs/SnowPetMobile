@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/glassHomeFragment">
+
+    <include app:graph="@navigation/nav_snowpet" />
+
+    <fragment
+        android:id="@+id/glassHomeFragment"
+        android:name="br.com.snowpet.NavigatorFragment"
+        android:label="GlassHomeFragment">
+
+        <deepLink app:uri="shellbox://module.legacy/startdestination" />
+
+    </fragment>
+</navigation>
