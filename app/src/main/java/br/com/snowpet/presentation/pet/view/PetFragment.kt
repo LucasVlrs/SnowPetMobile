@@ -4,8 +4,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.snowpet.R
 import br.com.snowpet.core.lifecycleowner.collectInLifecycle
+import br.com.snowpet.core.navigation.RegisterPetFragment
+import br.com.snowpet.core.navigation.base.navigateToDeeplink
 import br.com.snowpet.core.viewstate.onError
 import br.com.snowpet.core.viewstate.onLoading
 import br.com.snowpet.core.viewstate.onSuccess
@@ -25,6 +29,7 @@ class PetFragment : Fragment(R.layout.fragment_pet) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentPetBinding.bind(view)
+        binding.recyclerPets.layoutManager = LinearLayoutManager(requireContext())
 
         setupClick()
         setupObservers()
@@ -34,10 +39,10 @@ class PetFragment : Fragment(R.layout.fragment_pet) {
 
     private fun setupClick() {
         binding.back.setOnClickListener {
-            //navegar volta menu
+            findNavController().popBackStack()
         }
         binding.buttonAddPet.setOnClickListener{
-            //abrir frag de cadastro de pet
+            findNavController().navigateToDeeplink(RegisterPetFragment)
         }
     }
 

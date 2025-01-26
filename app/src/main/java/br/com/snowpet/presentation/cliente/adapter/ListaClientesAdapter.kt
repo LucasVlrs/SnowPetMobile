@@ -19,8 +19,8 @@ class ListaClientesAdapter: ListAdapter<ClienteModel, ListaClientesAdapter.ViewH
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val equipment = getItem(position)
-        holder.bind(equipment)
+        val cliente = getItem(position)
+        holder.bind(cliente)
     }
 
     inner class ViewHolder(private val binding: CardItemClienteBinding) :

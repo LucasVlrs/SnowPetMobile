@@ -26,6 +26,16 @@
     </fragment>
 
     <fragment
+        android:id="@+id/RegisterClienteFragment"
+        android:name="br.com.snowpet.presentation.register.cliente.view.RegisterClienteFragment"
+        android:label="ClienteFragment"
+        tools:layout="@layout/fragment_register_cliente">
+        <deepLink
+            android:id="@+id/homeFragment"
+            app:uri="android-app://snowpet/registercliente" />
+    </fragment>
+
+    <fragment
         android:id="@+id/PetFragment"
         android:name="br.com.snowpet.presentation.pet.view.PetFragment"
         android:label="PetFragment"
@@ -33,6 +43,16 @@
         <deepLink
             android:id="@+id/homeFragment"
             app:uri="android-app://snowpet/pet" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/RegisterPetFragment"
+        android:name="br.com.snowpet.presentation.register.pet.view.RegisterPetFragment"
+        android:label="ClienteFragment"
+        tools:layout="@layout/fragment_register_pet">
+        <deepLink
+            android:id="@+id/homeFragment"
+            app:uri="android-app://snowpet/registerpet" />
     </fragment>
 
 </navigation>

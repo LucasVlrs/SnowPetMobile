@@ -4,9 +4,9 @@ import java.io.Serializable
 
 data class PetModel(
     val nome: String,
-    val dono: String,
     val idade: Int,
     val raca: String,
     val porte: String,
-    val alergias: String
+    val alergias: String,
+    val dono: String
 ) : Serializable

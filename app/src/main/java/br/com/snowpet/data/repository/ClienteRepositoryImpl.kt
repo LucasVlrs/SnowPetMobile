@@ -10,12 +10,21 @@ import javax.inject.Inject
 class ClienteRepositoryImpl @Inject constructor(
     private val database: SnowPetDatabase,
 ) : ClienteRepository {
+
     override suspend fun getListClientes(): List<ClienteEntity> {
-
         val query = "SELECT * FROM cliente "
-
         return  database.clienteDao.getListClientes(SimpleSQLiteQuery(query))
     }
+
+    override suspend fun createNewCliente(clienteEntity: ClienteEntity): Long {
+        try {
+            return database.clienteDao.insert(clienteEntity)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return -1
+        }
+    }
+
 }
 
 /*

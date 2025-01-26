@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import br.com.snowpet.R
 import br.com.snowpet.core.navigation.ClienteFragment
+import br.com.snowpet.core.navigation.PetFragment
 import br.com.snowpet.core.navigation.base.navigateToDeeplink
 import br.com.snowpet.databinding.FragmentHomeScreenBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,8 +24,18 @@ class HomeScreenFragment : Fragment(R.layout.fragment_home_screen) {
 
     private fun setupClick() {
         binding.back.setOnClickListener {
+
+        }
+        binding.cardPet.setOnClickListener {
+            findNavController().navigateToDeeplink(PetFragment)
+        }
+        binding.cardCliente.setOnClickListener {
             findNavController().navigateToDeeplink(ClienteFragment)
         }
+        binding.cardBanhoETosa.setOnClickListener {
+            //findNavController().navigate(BanhoETosaFragment)
+        }
+
     }
 
 }

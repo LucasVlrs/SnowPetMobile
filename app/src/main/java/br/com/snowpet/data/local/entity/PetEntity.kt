@@ -12,8 +12,6 @@ import androidx.room.PrimaryKey
 data class PetEntity (
     @ColumnInfo(name = "nome")
     val nome: String = "",
-    @ColumnInfo(name = "dono")
-    val dono: String = "",
     @ColumnInfo(name = "idade")
     val idade: Int = 0,
     @ColumnInfo(name = "raca")
@@ -22,6 +20,8 @@ data class PetEntity (
     val porte: String = "",
     @ColumnInfo(name = "alergias")
     val alergias: String = "",
+    @ColumnInfo(name = "dono")
+    val dono: String = "",
 ) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "internal_id")

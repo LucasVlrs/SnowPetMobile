@@ -15,10 +15,13 @@ class PetRepositoryImpl @Inject constructor(
 
         return  database.petDao.getListPets(SimpleSQLiteQuery(query))
     }
-}
 
-/*
-[se tiver parametro] -> val conditions = mutableListOf<Pair<String, Any?>>()
-conditions.add("(i.account_id = '$accountId')" to null)
-val conditionsMerged = manuallyFilledFilters(conditions)
-*/
+    override suspend fun createNewPet(pet: PetEntity): Long {
+        try {
+            return database.petDao.insert(pet)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return -1
+        }
+    }
+}

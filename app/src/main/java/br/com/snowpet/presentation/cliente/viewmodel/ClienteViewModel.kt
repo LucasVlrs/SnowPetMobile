@@ -2,6 +2,7 @@ package br.com.snowpet.presentation.cliente.viewmodel
 
 import androidx.lifecycle.ViewModel
 import br.com.snowpet.core.viewstate.ViewState
+import br.com.snowpet.data.mapper.toListClienteModel
 import br.com.snowpet.domain.model.ClienteModel
 import br.com.snowpet.domain.usecase.ClienteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,16 +26,15 @@ class ClienteViewModel @Inject constructor(
         CoroutineScope(Dispatchers.IO).launch {
             _listaClientes.send(ViewState.Loading)
             delay(100)
-            val listPoints = clienteUseCase.getListClientes()
-
-            if (listPoints.isEmpty()) {
+            val listaClientes = clienteUseCase.getListClientes()
+            if (listaClientes.isEmpty()) {
                 _listaClientes.send(
                     ViewState.Error(
                         "Não Foram Encontrados Clientes"
                     )
                 )
             } else {
-                _listaClientes.send(ViewState.Success(listPoints))
+                _listaClientes.send(ViewState.Success(listaClientes.toListClienteModel()))
             }
         }
     }

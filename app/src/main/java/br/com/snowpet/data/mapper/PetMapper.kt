@@ -6,11 +6,11 @@ import br.com.snowpet.domain.model.PetModel
 fun toClienteModel(petEntity: PetEntity): PetModel {
     return PetModel(
         nome = petEntity.nome,
-        dono = petEntity.dono,
         raca = petEntity.raca,
         porte = petEntity.porte,
         alergias = petEntity.alergias,
-        idade = petEntity.idade
+        idade = petEntity.idade,
+        dono = petEntity.dono,
         )
 }
 
@@ -22,13 +22,13 @@ fun List<PetEntity>.toListPetModel(): List<PetModel> {
     return clienteModelList
 }
 
-fun toClienteEntity(petModel: PetModel): PetEntity {
+fun PetModel.toPetEntity(): PetEntity {
     return PetEntity(
-        nome = petModel.nome,
-        dono = petModel.dono,
-        raca = petModel.raca,
-        porte = petModel.porte,
-        alergias = petModel.alergias,
-        idade = petModel.idade
+        nome = this.nome,
+        raca = this.raca,
+        porte = this.porte,
+        alergias = this.alergias,
+        idade = this.idade,
+        dono = this.dono,
         )
 }

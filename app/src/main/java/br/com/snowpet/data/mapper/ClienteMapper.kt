@@ -19,10 +19,10 @@ fun List<ClienteEntity>.toListClienteModel(): List<ClienteModel> {
     return clienteModelList
 }
 
-fun toClienteEntity(clienteModel: ClienteModel): ClienteEntity {
+fun ClienteModel.toClienteEntity(): ClienteEntity {
     return ClienteEntity(
-        nome = clienteModel.nome,
-        cpf = clienteModel.cpf,
-        telefone = clienteModel.telefone,
+        nome = this.nome,
+        cpf = this.cpf,
+        telefone = this.telefone,
         )
 }
