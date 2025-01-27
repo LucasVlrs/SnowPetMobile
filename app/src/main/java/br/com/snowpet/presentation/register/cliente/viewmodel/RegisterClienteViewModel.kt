@@ -33,6 +33,15 @@ class RegisterClienteViewModel @Inject constructor(
     private val _telefoneCliente = MutableStateFlow<FormInputState>(FormInputState.Default)
     val telefoneCliente = _telefoneCliente.asStateFlow()
 
+    private val _enderecoCliente = MutableStateFlow<FormInputState>(FormInputState.Default)
+    val enderecoCliente = _enderecoCliente.asStateFlow()
+
+    private val _emailCliente = MutableStateFlow<FormInputState>(FormInputState.Default)
+    val emailCliente = _emailCliente.asStateFlow()
+
+    private val _redesSociaisCliente = MutableStateFlow<FormInputState>(FormInputState.Default)
+    val redesSociaisCliente = _redesSociaisCliente.asStateFlow()
+
     private val _isCreateButtonEnabled = MutableStateFlow(false)
     val isCreateButtonEnabled = _isCreateButtonEnabled.asStateFlow()
 
@@ -41,7 +50,10 @@ class RegisterClienteViewModel @Inject constructor(
             combine(
                 nomeCliente,
                 cpfCliente,
-                telefoneCliente
+                telefoneCliente,
+                enderecoCliente,
+                emailCliente,
+                redesSociaisCliente
             ) { states ->
                 states.all { it is FormInputState.Valid }
             }.collect { isEnabled ->
@@ -58,6 +70,9 @@ class RegisterClienteViewModel @Inject constructor(
                     clienteModelView.nome,
                     clienteModelView.cpf,
                     clienteModelView.telefone,
+                    clienteModelView.endereco,
+                    clienteModelView.email,
+                    clienteModelView.redesSociais,
                 )
 
             clienteUseCase.createNewCliente(
@@ -100,6 +115,45 @@ class RegisterClienteViewModel @Inject constructor(
                     _telefoneCliente.emit(FormInputState.Valid)
                 } else {
                     _telefoneCliente.emit(FormInputState.Invalid())
+                }
+            }
+        }
+    }
+
+    fun inputEnderecoCliente(endereco: String?) {
+        viewModelScope.launch {
+            endereco?.let {
+                clienteModelView.endereco = endereco
+                if (it.isNotEmpty()) {
+                    _enderecoCliente.emit(FormInputState.Valid)
+                } else {
+                    _enderecoCliente.emit(FormInputState.Invalid())
+                }
+            }
+        }
+    }
+
+    fun inputEmailCliente(email: String?) {
+        viewModelScope.launch {
+            email?.let {
+                clienteModelView.email = email
+                if (it.isNotEmpty()) {
+                    _emailCliente.emit(FormInputState.Valid)
+                } else {
+                    _emailCliente.emit(FormInputState.Invalid())
+                }
+            }
+        }
+    }
+
+    fun inputRedesSociaisCliente(redesSociais: String?) {
+        viewModelScope.launch {
+            redesSociais?.let {
+                clienteModelView.redesSociais = redesSociais
+                if (it.isNotEmpty()) {
+                    _redesSociaisCliente.emit(FormInputState.Valid)
+                } else {
+                    _redesSociaisCliente.emit(FormInputState.Invalid())
                 }
             }
         }

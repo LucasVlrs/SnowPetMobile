@@ -36,11 +36,17 @@ class RegisterPetViewModel @Inject constructor(
     private val _portePet = MutableStateFlow<FormInputState>(FormInputState.Default)
     val portePet = _portePet.asStateFlow()
 
+    private val _sexoPet = MutableStateFlow<FormInputState>(FormInputState.Default)
+    val sexoPet = _sexoPet.asStateFlow()
+
+    private val _problemasDeSaudePet = MutableStateFlow<FormInputState>(FormInputState.Default)
+    val problemasDeSaudePet = _problemasDeSaudePet.asStateFlow()
+
     private val _alergiasPet = MutableStateFlow<FormInputState>(FormInputState.Default)
     val alergiasPet = _alergiasPet.asStateFlow()
 
-    private val _donoPet = MutableStateFlow<FormInputState>(FormInputState.Default)
-    val donoPet = _donoPet.asStateFlow()
+    private val _informacoesAdicionaisPet = MutableStateFlow<FormInputState>(FormInputState.Valid)
+    val informacoesAdicionaisPet = _informacoesAdicionaisPet.asStateFlow()
 
     private val _isCreateButtonEnabled = MutableStateFlow(false)
     val isCreateButtonEnabled = _isCreateButtonEnabled.asStateFlow()
@@ -53,7 +59,9 @@ class RegisterPetViewModel @Inject constructor(
                 racaPet,
                 portePet,
                 alergiasPet,
-                donoPet,
+                sexoPet,
+                problemasDeSaudePet,
+                informacoesAdicionaisPet,
             ) { states ->
                 states.all { it is FormInputState.Valid }
             }.collect { areAllValid ->
@@ -64,15 +72,16 @@ class RegisterPetViewModel @Inject constructor(
 
     fun createNewPet() {
         CoroutineScope(Dispatchers.IO).launch {
-
             val pet =
                 PetModel(
                     nome = petModelView.nome,
                     idade = petModelView.idade,
                     raca = petModelView.raca,
                     porte = petModelView.porte,
+                    sexo = petModelView.sexo,
+                    problemasSaude = petModelView.problemasSaude,
                     alergias = petModelView.alergias,
-                    dono = petModelView.dono,
+                    informacoesAdicionais = petModelView.informacoesAdicionais,
                 )
 
             petUseCase.createNewPet(
@@ -134,6 +143,32 @@ class RegisterPetViewModel @Inject constructor(
         }
     }
 
+    fun inputSexoPet(sexo: String?) {
+        viewModelScope.launch {
+            sexo?.let {
+                petModelView.sexo = sexo
+                if (it.isNotEmpty()) {
+                    _sexoPet.emit(FormInputState.Valid)
+                } else {
+                    _sexoPet.emit(FormInputState.Invalid())
+                }
+            }
+        }
+    }
+
+    fun inputProblemasDeSaudePet(problemasDeSaude: String?) {
+        viewModelScope.launch {
+            problemasDeSaude?.let {
+                petModelView.problemasSaude = problemasDeSaude
+                if (it.isNotEmpty()) {
+                    _problemasDeSaudePet.emit(FormInputState.Valid)
+                } else {
+                    _problemasDeSaudePet.emit(FormInputState.Invalid())
+                }
+            }
+        }
+    }
+
     fun inputAlergiasPet(alergias: String?) {
         viewModelScope.launch {
             alergias?.let {
@@ -147,15 +182,10 @@ class RegisterPetViewModel @Inject constructor(
         }
     }
 
-    fun inputDonoPet(dono: String?) {
+    fun inputInformacoesAdicionaisPet(informacoesAdicionais: String?) {
         viewModelScope.launch {
-            dono?.let {
-                petModelView.dono = dono
-                if (it.isNotEmpty()) {
-                    _donoPet.emit(FormInputState.Valid)
-                } else {
-                    _donoPet.emit(FormInputState.Invalid())
-                }
+            informacoesAdicionais?.let {
+                petModelView.informacoesAdicionais = informacoesAdicionais
             }
         }
     }

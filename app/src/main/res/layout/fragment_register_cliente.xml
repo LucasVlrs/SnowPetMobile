@@ -101,6 +101,51 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cpf_cliente" />
 
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/endereco_cliente"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="15dp"
+                android:background="@drawable/text_input_border"
+                android:hint="Endereço (Obrigatório)"
+                android:padding="10dp"
+                android:paddingStart="20dp"
+                android:textColor="@color/gray_800"
+                android:textColorHint="@color/gray_500"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/telefone_cliente" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/email_cliente"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="15dp"
+                android:background="@drawable/text_input_border"
+                android:hint="Email (Obrigatório)"
+                android:padding="10dp"
+                android:paddingStart="20dp"
+                android:textColor="@color/gray_800"
+                android:textColorHint="@color/gray_500"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/endereco_cliente" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/redes_sociais_cliente"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="15dp"
+                android:background="@drawable/text_input_border"
+                android:hint="Redes Sociais"
+                android:padding="10dp"
+                android:paddingStart="20dp"
+                android:textColor="@color/gray_800"
+                android:textColorHint="@color/gray_500"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/email_cliente" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button

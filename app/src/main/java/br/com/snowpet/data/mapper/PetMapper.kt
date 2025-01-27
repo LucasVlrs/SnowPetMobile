@@ -3,21 +3,23 @@ package br.com.snowpet.data.mapper
 import br.com.snowpet.data.local.entity.PetEntity
 import br.com.snowpet.domain.model.PetModel
 
-fun toClienteModel(petEntity: PetEntity): PetModel {
+fun toPetModel(petEntity: PetEntity): PetModel {
     return PetModel(
         nome = petEntity.nome,
+        idade = petEntity.idade,
         raca = petEntity.raca,
         porte = petEntity.porte,
+        sexo = petEntity.sexo,
+        problemasSaude = petEntity.problemasSaude,
         alergias = petEntity.alergias,
-        idade = petEntity.idade,
-        dono = petEntity.dono,
+        informacoesAdicionais = petEntity.informacoesAdicionais
         )
 }
 
-fun List<PetEntity>.toListPetModel(): List<PetModel> {
+fun List<PetEntity>?.toListPetModel(): List<PetModel> {
     val clienteModelList = mutableListOf<PetModel>()
-    this.forEach {
-        clienteModelList.add(toClienteModel(it))
+    this?.forEach {
+        clienteModelList.add(toPetModel(it))
     }
     return clienteModelList
 }
@@ -25,10 +27,20 @@ fun List<PetEntity>.toListPetModel(): List<PetModel> {
 fun PetModel.toPetEntity(): PetEntity {
     return PetEntity(
         nome = this.nome,
+        idade = this.idade,
         raca = this.raca,
         porte = this.porte,
+        sexo = this.sexo,
+        problemasSaude = this.problemasSaude,
         alergias = this.alergias,
-        idade = this.idade,
-        dono = this.dono,
+        informacoesAdicionais = this.informacoesAdicionais,
         )
+}
+
+fun List<PetModel>?.toListPetsEntity(): List<PetEntity> {
+    val petEntityList = mutableListOf<PetEntity>()
+    this?.forEach {
+        petEntityList.add(it.toPetEntity())
+    }
+    return petEntityList
 }

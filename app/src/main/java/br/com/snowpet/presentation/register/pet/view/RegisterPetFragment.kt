@@ -58,11 +58,17 @@ class RegisterPetFragment : Fragment(R.layout.fragment_register_pet) {
         binding.portePet.addTextChangedListener { text ->
             viewModel.inputPortePet(text.toString())
         }
+        binding.sexoPet.addTextChangedListener { text ->
+            viewModel.inputSexoPet(text.toString())
+        }
+        binding.problemasDeSaudePet.addTextChangedListener { text ->
+            viewModel.inputProblemasDeSaudePet(text.toString())
+        }
         binding.alergiasPet.addTextChangedListener { text ->
             viewModel.inputAlergiasPet(text.toString())
         }
-        binding.donoPet.addTextChangedListener { text ->
-            viewModel.inputDonoPet(text.toString())
+        binding.informacoesAdicionais.addTextChangedListener { text ->
+            viewModel.inputInformacoesAdicionaisPet(text.toString())
         }
     }
 }

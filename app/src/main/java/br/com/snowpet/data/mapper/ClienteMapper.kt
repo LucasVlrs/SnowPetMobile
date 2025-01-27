@@ -8,6 +8,10 @@ fun toClienteModel(clienteEntity: ClienteEntity): ClienteModel {
         nome = clienteEntity.nome,
         cpf = clienteEntity.cpf,
         telefone = clienteEntity.telefone,
+        endereco = clienteEntity.endereco,
+        email = clienteEntity.email,
+        redesSociais = clienteEntity.redesSociais,
+        pets = clienteEntity.pets?.toListPetModel()
         )
 }
 
@@ -24,5 +28,9 @@ fun ClienteModel.toClienteEntity(): ClienteEntity {
         nome = this.nome,
         cpf = this.cpf,
         telefone = this.telefone,
+        endereco = this.endereco,
+        email = this.email,
+        redesSociais = this.redesSociais,
+        pets = this.pets?.toListPetsEntity()
         )
 }

@@ -18,10 +18,14 @@ data class PetEntity (
     val raca: String = "",
     @ColumnInfo(name = "porte")
     val porte: String = "",
+    @ColumnInfo(name = "sexo")
+    val sexo: String = "",
+    @ColumnInfo(name = "problemasSaude")
+    val problemasSaude: String = "",
     @ColumnInfo(name = "alergias")
     val alergias: String = "",
-    @ColumnInfo(name = "dono")
-    val dono: String = "",
+    @ColumnInfo(name = "informacoesAdicionais")
+    val informacoesAdicionais: String? = "",
 ) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "internal_id")

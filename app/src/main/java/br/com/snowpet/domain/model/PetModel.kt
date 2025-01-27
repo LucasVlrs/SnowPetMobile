@@ -7,6 +7,8 @@ data class PetModel(
     val idade: Int,
     val raca: String,
     val porte: String,
+    val sexo: String,
+    val problemasSaude: String,
     val alergias: String,
-    val dono: String
+    val informacoesAdicionais: String?,
 ) : Serializable

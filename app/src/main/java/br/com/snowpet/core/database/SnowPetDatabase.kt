@@ -1,13 +1,12 @@
 package br.com.snowpet.core.database
 
 import android.content.Context
-import android.preference.PreferenceManager
-import androidx.databinding.adapters.Converters
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import br.com.snowpet.core.database.SnowPetDatabase.Companion.DATABASE_VERSION
+import br.com.snowpet.data.local.converter.Converters
 import br.com.snowpet.data.local.dao.ClienteDao
 import br.com.snowpet.data.local.dao.PetDao
 import br.com.snowpet.data.local.entity.ClienteEntity
@@ -21,13 +20,14 @@ import br.com.snowpet.data.local.entity.PetEntity
     version = DATABASE_VERSION,
     exportSchema = false
 )
+@TypeConverters(Converters::class)
 abstract class SnowPetDatabase : RoomDatabase() {
     abstract val clienteDao: ClienteDao
     abstract val petDao: PetDao
 
     companion object {
         private lateinit var INSTANCE: SnowPetDatabase
-        const val DATABASE_VERSION = 4
+        const val DATABASE_VERSION = 5
 
         @JvmStatic
         @Synchronized
@@ -40,7 +40,8 @@ abstract class SnowPetDatabase : RoomDatabase() {
                                 SnowPetDatabase::class.java,
                                 "snow_pet.db"
                             )
-                                .fallbackToDestructiveMigration().build()
+                                .fallbackToDestructiveMigration()
+                                .build()
                     }
                 }
             return INSTANCE

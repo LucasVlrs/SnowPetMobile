@@ -72,21 +72,6 @@
                 tools:text="Bob" />
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/raca_pet"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_margin="15dp"
-                android:background="@drawable/text_input_border"
-                android:hint="Raça (Obrigatório)"
-                android:padding="10dp"
-                android:paddingStart="20dp"
-                android:textColor="@color/gray_800"
-                android:textColorHint="@color/gray_500"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/nome_pet" />
-
-            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/idade_pet"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -100,7 +85,22 @@
                 android:textColorHint="@color/gray_500"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/raca_pet" />
+                app:layout_constraintTop_toBottomOf="@id/nome_pet" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/raca_pet"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="15dp"
+                android:background="@drawable/text_input_border"
+                android:hint="Raça (Obrigatório)"
+                android:padding="10dp"
+                android:paddingStart="20dp"
+                android:textColor="@color/gray_800"
+                android:textColorHint="@color/gray_500"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/idade_pet" />
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/porte_pet"
@@ -115,7 +115,38 @@
                 android:textColorHint="@color/gray_500"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/idade_pet" />
+                app:layout_constraintTop_toBottomOf="@id/raca_pet" />
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/sexo_pet"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="15dp"
+                android:background="@drawable/text_input_border"
+                android:hint="Sexo (Obrigatório)"
+                android:padding="10dp"
+                android:paddingStart="20dp"
+                android:textColor="@color/gray_800"
+                android:textColorHint="@color/gray_500"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/porte_pet" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/problemas_de_saude_pet"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="15dp"
+                android:background="@drawable/text_input_border"
+                android:hint="Problemas de saúde (Obrigatório)"
+                android:padding="10dp"
+                android:paddingStart="20dp"
+                android:textColor="@color/gray_800"
+                android:textColorHint="@color/gray_500"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/sexo_pet" />
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/alergias_pet"
@@ -130,15 +161,15 @@
                 android:textColorHint="@color/gray_500"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/porte_pet" />
+                app:layout_constraintTop_toBottomOf="@id/problemas_de_saude_pet" />
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/dono_pet"
+                android:id="@+id/informacoes_adicionais"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_margin="15dp"
                 android:background="@drawable/text_input_border"
-                android:hint="Dono"
+                android:hint="Informções Adicionais"
                 android:padding="10dp"
                 android:paddingStart="20dp"
                 android:textColor="@color/gray_800"

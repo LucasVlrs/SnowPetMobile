@@ -56,5 +56,14 @@ class RegisterClienteFragment : Fragment(R.layout.fragment_register_cliente) {
         binding.telefoneCliente.addTextChangedListener { text ->
             viewModel.inputTelefoneCliente(text.toString())
         }
+        binding.enderecoCliente.addTextChangedListener { text ->
+            viewModel.inputEnderecoCliente(text.toString())
+        }
+        binding.emailCliente.addTextChangedListener { text ->
+            viewModel.inputEmailCliente(text.toString())
+        }
+        binding.redesSociaisCliente.addTextChangedListener { text ->
+            viewModel.inputRedesSociaisCliente(text.toString())
+        }
     }
 }
