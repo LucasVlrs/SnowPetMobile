@@ -8,18 +8,24 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import br.com.snowpet.R
+import br.com.snowpet.core.lifecycleowner.collectInLifecycle
+import br.com.snowpet.core.viewstate.onSuccess
 import br.com.snowpet.databinding.FragmentRegisterPetBinding
+import br.com.snowpet.domain.model.ClienteModel
 import br.com.snowpet.presentation.register.pet.viewmodel.RegisterPetViewModel
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class RegisterPetFragment : Fragment(R.layout.fragment_register_pet) {
     private lateinit var binding: FragmentRegisterPetBinding
     private val viewModel: RegisterPetViewModel by activityViewModels()
 
+    private lateinit var dialog: DonoPetDialog
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentRegisterPetBinding.bind(view)
+
+        viewModel.getNomeCpfDonos()
+        dialog = DonoPetDialog()
 
         setupObservers()
         setupClick()
@@ -31,7 +37,7 @@ class RegisterPetFragment : Fragment(R.layout.fragment_register_pet) {
         }
         binding.buttonCreatePet.setOnClickListener {
             viewModel.createNewPet()
-            findNavController().popBackStack()
+            dialog.show(childFragmentManager, "DonoPetDialog")
         }
     }
 
@@ -42,6 +48,18 @@ class RegisterPetFragment : Fragment(R.layout.fragment_register_pet) {
             viewModel.isCreateButtonEnabled.collect { isEnabled ->
                 binding.buttonCreatePet.isEnabled = isEnabled
             }
+        }
+
+        viewLifecycleOwner.collectInLifecycle(flow = viewModel.listaClientes) { state ->
+            state.onSuccess {
+                setupListDialog(it)
+            }
+        }
+    }
+
+    private fun setupListDialog(list: List<ClienteModel>) {
+        dialog = DonoPetDialog(list) { selectedOwner ->
+            viewModel.setDonoPet(selectedOwner.cpf)
         }
     }
 

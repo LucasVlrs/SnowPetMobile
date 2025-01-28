@@ -13,7 +13,7 @@ class PetRepositoryImpl @Inject constructor(
 
         val query = "SELECT * FROM pet "
 
-        return  database.petDao.getListPets(SimpleSQLiteQuery(query))
+        return database.petDao.getListPets(SimpleSQLiteQuery(query))
     }
 
     override suspend fun createNewPet(pet: PetEntity): Long {
@@ -24,4 +24,11 @@ class PetRepositoryImpl @Inject constructor(
             return -1
         }
     }
+
+    override suspend fun getInternalIdPet(): Int {
+        val query = "SELECT * FROM pet ORDER BY internal_id DESC LIMIT 1"
+        val result = database.petDao.getListPets(SimpleSQLiteQuery(query))
+        return result.firstOrNull()?.internalId ?: 0
+    }
+
 }

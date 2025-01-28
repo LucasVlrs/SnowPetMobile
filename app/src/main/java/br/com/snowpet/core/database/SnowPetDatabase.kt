@@ -27,7 +27,7 @@ abstract class SnowPetDatabase : RoomDatabase() {
 
     companion object {
         private lateinit var INSTANCE: SnowPetDatabase
-        const val DATABASE_VERSION = 5
+        const val DATABASE_VERSION = 6
 
         @JvmStatic
         @Synchronized

@@ -2,8 +2,12 @@ package br.com.snowpet.presentation.register.pet.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import br.com.snowpet.core.viewstate.ViewState
+import br.com.snowpet.data.mapper.toListClienteModel
 import br.com.snowpet.data.mapper.toPetEntity
+import br.com.snowpet.domain.model.ClienteModel
 import br.com.snowpet.domain.model.PetModel
+import br.com.snowpet.domain.usecase.ClienteUseCase
 import br.com.snowpet.domain.usecase.PetUseCase
 import br.com.snowpet.presentation.register.pet.modelview.PetModelView
 import br.com.snowpet.presentation.register.pet.modelview.createPet
@@ -11,18 +15,24 @@ import br.com.snowpet.presentation.register.viewstate.FormInputState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class RegisterPetViewModel @Inject constructor(
-    private val petUseCase: PetUseCase
-): ViewModel() {
+    private val petUseCase: PetUseCase,
+    private val clienteUseCase: ClienteUseCase
+) : ViewModel() {
 
     val petModelView: PetModelView = createPet()
+
+    private val _listaClientes = Channel<ViewState<List<ClienteModel>>>()
+    val listaClientes = _listaClientes.receiveAsFlow()
 
     private val _nomePet = MutableStateFlow<FormInputState>(FormInputState.Default)
     val nomePet = _nomePet.asStateFlow()
@@ -189,4 +199,25 @@ class RegisterPetViewModel @Inject constructor(
             }
         }
     }
+
+    fun getNomeCpfDonos() {
+        CoroutineScope(Dispatchers.IO).launch {
+            _listaClientes.send(ViewState.Loading)
+            val listaClientes = clienteUseCase.getListClientes()
+
+            if (listaClientes.isEmpty()) {
+                _listaClientes.send(ViewState.Error("Não foram encontrados Donos"))
+            } else {
+                _listaClientes.send(ViewState.Success(listaClientes.toListClienteModel()))
+            }
+        }
+    }
+
+    fun setDonoPet(cpfDono: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val petRegistrado = petUseCase.getInternalIdPet()
+            //clienteUseCase.setDonoPet(cpfDono, petRegistrado)
+        }
+    }
+
 }
