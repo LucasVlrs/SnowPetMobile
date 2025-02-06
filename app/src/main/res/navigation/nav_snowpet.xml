@@ -55,4 +55,24 @@
             app:uri="android-app://snowpet/registerpet" />
     </fragment>
 
+    <fragment
+        android:id="@+id/AtendimentoFragment"
+        android:name="br.com.snowpet.presentation.atendimento.view.AtendimentoFragment"
+        android:label="AtendimentoFragment"
+        tools:layout="@layout/fragment_atendimento">
+        <deepLink
+            android:id="@+id/homeFragment"
+            app:uri="android-app://snowpet/atendimento" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/RegisterAtendimentoFragment"
+        android:name="br.com.snowpet.presentation.register.atendimento.view.RegisterAtendimentoFragment"
+        android:label="RegisterAtendimentoFragment"
+        tools:layout="@layout/fragment_register_pet">
+        <deepLink
+            android:id="@+id/homeFragment"
+            app:uri="android-app://snowpet/registeratendimento" />
+    </fragment>
+
 </navigation>

@@ -11,7 +11,6 @@ fun toClienteModel(clienteEntity: ClienteEntity): ClienteModel {
         endereco = clienteEntity.endereco,
         email = clienteEntity.email,
         redesSociais = clienteEntity.redesSociais,
-        pets = clienteEntity.pets?.toListPetModel()
         )
 }
 
@@ -31,6 +30,5 @@ fun ClienteModel.toClienteEntity(): ClienteEntity {
         endereco = this.endereco,
         email = this.email,
         redesSociais = this.redesSociais,
-        pets = this.pets?.toListPetsEntity()
         )
 }

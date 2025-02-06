@@ -3,6 +3,7 @@ package br.com.snowpet.domain.model
 import java.io.Serializable
 
 data class PetModel(
+    val petId: Int = 0,
     val nome: String,
     val idade: Int,
     val raca: String,

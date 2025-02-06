@@ -216,7 +216,7 @@ class RegisterPetViewModel @Inject constructor(
     fun setDonoPet(cpfDono: String) {
         CoroutineScope(Dispatchers.IO).launch {
             val petRegistrado = petUseCase.getInternalIdPet()
-            //clienteUseCase.setDonoPet(cpfDono, petRegistrado)
+            clienteUseCase.setDonoPet(cpfDono, petRegistrado)
         }
     }
 

@@ -5,6 +5,7 @@ import br.com.snowpet.domain.model.PetModel
 
 fun toPetModel(petEntity: PetEntity): PetModel {
     return PetModel(
+        petId = petEntity.internalId,
         nome = petEntity.nome,
         idade = petEntity.idade,
         raca = petEntity.raca,
@@ -26,6 +27,7 @@ fun List<PetEntity>?.toListPetModel(): List<PetModel> {
 
 fun PetModel.toPetEntity(): PetEntity {
     return PetEntity(
+        petId = this.petId,
         nome = this.nome,
         idade = this.idade,
         raca = this.raca,

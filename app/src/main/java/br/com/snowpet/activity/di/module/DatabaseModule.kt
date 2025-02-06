@@ -3,6 +3,7 @@ package br.com.snowpet.activity.di.module
 import android.content.Context
 import androidx.room.Room
 import br.com.snowpet.core.database.SnowPetDatabase
+import br.com.snowpet.data.local.dao.AtendimentoDao
 import br.com.snowpet.data.local.dao.ClienteDao
 import br.com.snowpet.data.local.dao.PetDao
 import dagger.Module
@@ -34,5 +35,10 @@ class DatabaseModule {
     @Provides
     fun providePetDao(database: SnowPetDatabase): PetDao {
         return database.petDao
+    }
+
+    @Provides
+    fun provideAtendimentoDao(database: SnowPetDatabase): AtendimentoDao {
+        return database.atendimentoDao
     }
 }

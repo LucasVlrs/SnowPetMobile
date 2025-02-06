@@ -1,8 +1,10 @@
 package br.com.snowpet.activity.di.module
 
 import br.com.snowpet.core.database.SnowPetDatabase
+import br.com.snowpet.data.repository.AtendimentoRepositoryImpl
 import br.com.snowpet.data.repository.ClienteRepositoryImpl
 import br.com.snowpet.data.repository.PetRepositoryImpl
+import br.com.snowpet.domain.repository.AtendimentoRepository
 import br.com.snowpet.domain.repository.ClienteRepository
 import br.com.snowpet.domain.repository.PetRepository
 import dagger.Module
@@ -21,5 +23,9 @@ class SourceModule {
     @Provides
     fun providePetRepository(snowPetDatabase: SnowPetDatabase): PetRepository =
         PetRepositoryImpl(snowPetDatabase)
+
+    @Provides
+    fun provideAtendimentoRepository(snowPetDatabase: SnowPetDatabase): AtendimentoRepository =
+        AtendimentoRepositoryImpl(snowPetDatabase)
 
 }

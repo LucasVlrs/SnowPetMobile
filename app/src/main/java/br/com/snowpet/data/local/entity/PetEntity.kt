@@ -7,9 +7,14 @@ import androidx.room.PrimaryKey
 
 @Entity(
     tableName = "pet",
-    indices = [Index(value = ["internal_id"])]
+    indices = [
+        Index(value = ["internal_id"]),
+        Index(value = ["pet_id"], unique = true)
+    ]
 )
-data class PetEntity (
+data class PetEntity(
+    @ColumnInfo(name = "pet_id")
+    val petId: Int = 0,
     @ColumnInfo(name = "nome")
     val nome: String = "",
     @ColumnInfo(name = "idade")

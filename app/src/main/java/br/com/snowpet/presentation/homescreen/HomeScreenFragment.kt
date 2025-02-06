@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import br.com.snowpet.R
+import br.com.snowpet.core.navigation.AtendimentoFragment
 import br.com.snowpet.core.navigation.ClienteFragment
 import br.com.snowpet.core.navigation.PetFragment
 import br.com.snowpet.core.navigation.base.navigateToDeeplink
@@ -33,7 +34,7 @@ class HomeScreenFragment : Fragment(R.layout.fragment_home_screen) {
             findNavController().navigateToDeeplink(ClienteFragment)
         }
         binding.cardBanhoETosa.setOnClickListener {
-            //findNavController().navigate(BanhoETosaFragment)
+            findNavController().navigateToDeeplink(AtendimentoFragment)
         }
 
     }

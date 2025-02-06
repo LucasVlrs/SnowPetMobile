@@ -1,9 +1,9 @@
 package br.com.snowpet.data.repository
 
-import android.util.Log
 import androidx.sqlite.db.SimpleSQLiteQuery
 import br.com.snowpet.core.database.SnowPetDatabase
 import br.com.snowpet.data.local.entity.ClienteEntity
+import br.com.snowpet.data.local.entity.ClientePetEntity
 import br.com.snowpet.domain.repository.ClienteRepository
 import javax.inject.Inject
 
@@ -25,10 +25,14 @@ class ClienteRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun setDonoPet(clienteCpf: String, petInternalId: Int): Long {
+        try {
+            val clientePetEntity =
+                ClientePetEntity(clienteCpf, petInternalId)
+            return database.clientepetDao.setDonoPet(clientePetEntity)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return -1
+        }
+    }
 }
-
-/*
-[se tiver parametro] -> val conditions = mutableListOf<Pair<String, Any?>>()
-conditions.add("(i.account_id = '$accountId')" to null)
-val conditionsMerged = manuallyFilledFilters(conditions)
-*/
