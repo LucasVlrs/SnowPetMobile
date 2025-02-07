@@ -30,7 +30,7 @@ class ListaAtendimentosAdapter: ListAdapter<AtendimentoModel, ListaAtendimentosA
         fun bind(atendimento: AtendimentoModel) {
             with(binding) {
 
-                idAtendimento.text = idAtendimento.toString()
+                idAtendimento.text = atendimento.idAtendimento.toString()
                 nomeCliente.text = atendimento.banhoETosa.cliente
                 nomePet.text = atendimento.banhoETosa.pet.toString()
                 dataAtendimento.text = atendimento.data
@@ -38,7 +38,7 @@ class ListaAtendimentosAdapter: ListAdapter<AtendimentoModel, ListaAtendimentosA
 
                 valorTotal.text = buildString {
                     append("R$")
-                    append(atendimento.valorTotal)
+                    append(atendimento.valorTotal + atendimento.banhoETosa.valor)
                 }
 
                 root.setOnClickListener {

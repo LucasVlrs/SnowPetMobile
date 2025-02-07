@@ -14,8 +14,15 @@ class AtendimentoUseCase @Inject constructor(
     suspend fun createNewAtendimento(atendimento: AtendimentoEntity) =
         atendimentoRepository.createNewAtendimento(atendimento)
 
+    suspend fun createNewBanhoETosa(banhoETosaEntity: BanhoETosaEntity) =
+        atendimentoRepository.createNewBanhoETosa(banhoETosaEntity)
+
     suspend fun getListAtendimentos(): List<AtendimentoEntity> {
         return atendimentoRepository.getListAtendimentos()
+    }
+
+    suspend fun getLastBanhoETosa(): BanhoETosaEntity {
+        return atendimentoRepository.getLastBanhoETosa()
     }
 
     suspend fun getListBanhoETosa(): List<BanhoETosaEntity> {

@@ -1,6 +1,7 @@
 package br.com.snowpet.data.mapper
 
 import br.com.snowpet.data.local.entity.AtendimentoEntity
+import br.com.snowpet.data.local.entity.BanhoETosaEntity
 import br.com.snowpet.domain.model.AtendimentoModel
 import br.com.snowpet.domain.model.BanhoETosaModel
 
@@ -13,10 +14,10 @@ fun AtendimentoEntity.toAtendimentoModel(banhoETosaModel: BanhoETosaModel): Aten
     )
 }
 
-fun AtendimentoModel.toAtendimentoEntity(): AtendimentoEntity {
+fun AtendimentoModel.toAtendimentoEntity(banhoETosaEntity: BanhoETosaEntity): AtendimentoEntity {
     return AtendimentoEntity(
         idAtendimento = this.idAtendimento,
-        banhoETosaId = this.banhoETosa.idBanhoETosa,
+        banhoETosaId = banhoETosaEntity.idBanhoETosa,
         data = this.data,
         valorTotal = this.valorTotal
     )
@@ -30,6 +31,6 @@ fun List<AtendimentoEntity>.toAtendimentoModelList(banhoETosaModels: List<BanhoE
     }
 }
 
-fun List<AtendimentoModel>.toAtendimentoEntityList(): List<AtendimentoEntity> {
-    return this.map { it.toAtendimentoEntity() }
+fun List<AtendimentoModel>.toAtendimentoEntityList(listBanhoETosaEntity: BanhoETosaEntity): List<AtendimentoEntity> {
+    return this.map { it.toAtendimentoEntity(listBanhoETosaEntity) }
 }

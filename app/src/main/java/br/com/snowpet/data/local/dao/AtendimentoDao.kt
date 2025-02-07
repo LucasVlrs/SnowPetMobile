@@ -35,6 +35,24 @@ interface AtendimentoDao {
     @RawQuery(observedEntities = [AtendimentoEntity::class])
     fun getListAtendimentos(query: SupportSQLiteQuery): List<AtendimentoEntity>
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertBanhoETosa(banhoETosa: BanhoETosaEntity): Long
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertOrReplaceBanhoETosa(banhoETosa: BanhoETosaEntity)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAllBanhoETosa(banhoETosa: List<BanhoETosaEntity>)
+
+    @Update
+    fun updateBanhoETosa(banhoETosa: BanhoETosaEntity)
+
+    @Delete()
+    fun deleteBanhoETosa(banhoETosa: BanhoETosaEntity)
+
+    @RawQuery(observedEntities = [BanhoETosaEntity::class])
+    fun getLastBanhoETosa(query: SupportSQLiteQuery): BanhoETosaEntity
+
     @RawQuery(observedEntities = [BanhoETosaEntity::class])
     fun getListBanhoETosa(query: SupportSQLiteQuery): List<BanhoETosaEntity>
 }

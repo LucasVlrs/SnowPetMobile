@@ -3,6 +3,7 @@ package br.com.snowpet.presentation.register.atendimento.view
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -76,7 +77,7 @@ class RegisterAtendimentoFragment : Fragment(R.layout.fragment_register_atendime
 
         binding.dropdownPets.setOnItemClickListener { _, _, position, _ ->
             val petSelecionado = pets[position]
-            viewModel.atendimentoModelView.banhoETosa.pet = petSelecionado.petId
+            viewModel.inputPet(petSelecionado.petId)
         }
 
     }
@@ -88,7 +89,7 @@ class RegisterAtendimentoFragment : Fragment(R.layout.fragment_register_atendime
 
         binding.dropdownDonos.setOnItemClickListener { _, _, position, _ ->
             val clienteSelecionado = clientes[position]
-            viewModel.atendimentoModelView.banhoETosa.cliente = clienteSelecionado.cpf
+            viewModel.inputCliente(clienteSelecionado.cpf)
         }
     }
 
@@ -104,6 +105,5 @@ class RegisterAtendimentoFragment : Fragment(R.layout.fragment_register_atendime
         binding.observacoes.addTextChangedListener { text ->
             viewModel.inputObservacoes(text.toString())
         }
-
     }
 }

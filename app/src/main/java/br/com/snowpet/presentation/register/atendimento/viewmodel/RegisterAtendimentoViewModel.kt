@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.snowpet.core.viewstate.ViewState
 import br.com.snowpet.data.mapper.toAtendimentoEntity
+import br.com.snowpet.data.mapper.toBanhoETosaEntity
 import br.com.snowpet.data.mapper.toListClienteModel
 import br.com.snowpet.domain.model.AtendimentoModel
 import br.com.snowpet.domain.model.BanhoETosaModel
@@ -25,6 +26,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 @HiltViewModel
@@ -112,23 +115,34 @@ class RegisterAtendimentoViewModel @Inject constructor(
 
     fun createNewAtendimento() {
         CoroutineScope(Dispatchers.IO).launch {
+
+            val banhoETosaModel = BanhoETosaModel(
+                cliente = atendimentoModelView.banhoETosa.cliente,
+                pet = atendimentoModelView.banhoETosa.pet,
+                tipoBanho = atendimentoModelView.banhoETosa.tipoBanho,
+                valor = atendimentoModelView.banhoETosa.valor,
+                observacoes = atendimentoModelView.banhoETosa.observacoes
+            )
+
+            atendimentoUseCase.createNewBanhoETosa(banhoETosaModel.toBanhoETosaEntity())
+
+            val banhoETosaModelWithId = atendimentoUseCase.getLastBanhoETosa()
             val atendimento =
                 AtendimentoModel(
-                    banhoETosa = BanhoETosaModel(
-                        cliente = atendimentoModelView.banhoETosa.cliente,
-                        pet = atendimentoModelView.banhoETosa.pet,
-                        tipoBanho = atendimentoModelView.banhoETosa.tipoBanho,
-                        valor = atendimentoModelView.banhoETosa.valor,
-                        observacoes = atendimentoModelView.banhoETosa.observacoes
-                    ),
-                    data = atendimentoModelView.data,
+                    banhoETosa = banhoETosaModel,
+                    data = getCurrentDateTime(),
                     valorTotal = atendimentoModelView.valorTotal
                 )
 
-            atendimentoUseCase.createNewAtendimento(
-                atendimento.toAtendimentoEntity()
-            )
+            atendimentoUseCase.createNewAtendimento(atendimento.toAtendimentoEntity(banhoETosaModelWithId))
         }
+    }
+
+    private fun getCurrentDateTime(): String {
+        val dataHoraAtual = LocalDateTime.now()
+        val formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")
+        val dataFormatada = dataHoraAtual.format(formato)
+        return dataFormatada
     }
 
     fun inputTipoBanhoTosa(tipoBanhoTosa: String?) {
@@ -161,6 +175,28 @@ class RegisterAtendimentoViewModel @Inject constructor(
         viewModelScope.launch {
             observacoes?.let {
                 atendimentoModelView.banhoETosa.observacoes = observacoes
+            }
+        }
+    }
+
+    fun inputPet(petId: Int) {
+        viewModelScope.launch {
+            atendimentoModelView.banhoETosa.pet = petId
+            if (petId.toString().isNotEmpty()) {
+                _idPet.emit(FormInputState.Valid)
+            } else {
+                _idPet.emit(FormInputState.Invalid())
+            }
+        }
+    }
+
+    fun inputCliente(cpf: String) {
+        viewModelScope.launch {
+            atendimentoModelView.banhoETosa.cliente = cpf
+            if (cpf.isNotEmpty()) {
+                _cpfCliente.emit(FormInputState.Valid)
+            } else {
+                _cpfCliente.emit(FormInputState.Invalid())
             }
         }
     }

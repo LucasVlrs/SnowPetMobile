@@ -23,9 +23,23 @@ class AtendimentoRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun createNewBanhoETosa(banhoETosa: BanhoETosaEntity): Long {
+        try {
+            return database.atendimentoDao.insertBanhoETosa(banhoETosa)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return -1
+        }
+    }
+
     override suspend fun getListAtendimentos(): List<AtendimentoEntity> {
         val query = "SELECT * FROM atendimento "
         return  database.atendimentoDao.getListAtendimentos(SimpleSQLiteQuery(query))
+    }
+
+    override suspend fun getLastBanhoETosa(): BanhoETosaEntity {
+        val query = "SELECT * FROM banho_e_tosa ORDER BY id_banho_tosa DESC LIMIT 1"
+        return  database.atendimentoDao.getLastBanhoETosa(SimpleSQLiteQuery(query))
     }
 
     override suspend fun getListBanhoETosa(): List<BanhoETosaEntity> {
